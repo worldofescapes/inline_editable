@@ -1,0 +1,26 @@
+{
+  "name": "activeadmin-editable",
+  "version": "0.1.0",
+  "description": "JavaScript assets for ActiveAdmin Editable gem",
+  "main": "index.js",
+  "files": [
+    "src/",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "activeadmin",
+    "rails",
+    "inline-edit",
+    "stimulus"
+  ],
+  "author": "Alan",
+  "license": "MIT",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/worldofescapes/activeadmin_editable.git"
+  }
+}
