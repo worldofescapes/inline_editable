@@ -121,18 +121,15 @@ module ActiveadminEditable
     
     def build_select_element(attribute, value, options, unique_id)
       collection = options[:collection]
-      with_style = options[:with_style] || false
       
-      options_html = if with_style && collection.present?
-        collection.map do |val, html_label|
+      options_html = if collection.present?
+        collection.map do |val, label|
           selected = val.to_s == value.to_s ? ' selected="selected"' : ''
-          "<option value=\"#{val}\"#{selected}>#{html_label}</option>"
+          # Используем атрибут data-html для передачи HTML
+          # Экранируем кавычки в HTML
+          escaped_html = label.to_s.gsub('"', '&quot;').gsub("'", '&#39;')
+          "<option value=\"#{val}\"#{selected} data-html=\"#{escaped_html}\">#{label}</option>"
         end.join.html_safe
-      else
-        options_for_select(
-          collection.map { |value, label| [label, value] },
-          value.to_s
-        )
       end
       
       select_tag(
@@ -157,7 +154,8 @@ module ActiveadminEditable
         class: "inline-edit-input",
         "aria-labelledby" => "#{unique_id}-label",
         data: {
-          action: "keydown->inline-edit#handleKeydown blur->inline-edit#submitFormAndHide",
+          # Используем только одно событие для отправки формы
+          action: "keydown->inline-edit#handleKeydown focusout->inline-edit#submitFormAndHide",
           "inline-edit-target" => "input"
         }
       )

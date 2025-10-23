@@ -51,14 +51,14 @@ export function createInlineEditController(Controller) {
               const errorMessages = [];
               for (const [field, messages] of Object.entries(error.errors)) {
                 if (Array.isArray(messages)) {
-                  messages.forEach(message => {
+                  messages.forEach((message) => {
                     errorMessages.push(`${field} ${message}`);
                   });
                 } else {
                   errorMessages.push(`${field} ${messages}`);
                 }
               }
-              errorText = errorMessages.join('\n');
+              errorText = errorMessages.join("\n");
             } else {
               errorText = JSON.stringify(error, null, 2);
             }
@@ -96,9 +96,9 @@ export function createInlineEditController(Controller) {
           case "select":
             const selectedOption =
               this.inputTarget.options[this.inputTarget.selectedIndex];
-            const selectedText = selectedOption.innerHTML;
-
-            this.displayTarget.innerHTML = selectedText;
+            // в Safary из options.value приходят только текст а не HTML поэтому используем data-html атрибут
+            const selectedHTML = selectedOption.getAttribute("data-html");
+            this.displayTarget.innerHTML = selectedHTML;
             break;
           default:
             value = this.inputTarget.value;
@@ -126,6 +126,8 @@ export function createInlineEditController(Controller) {
           break;
       }
 
+      // Если значение не изменилось, не отправляем запрос
+      // Но пустые значения всегда отправляем, так как они могут быть валидными
       if (value === this.originalValueValue) {
         this.hideForm();
         return true;
@@ -172,12 +174,12 @@ export function createInlineEditController(Controller) {
 
     getModelName() {
       const url = this.urlValue;
-      const pathParts = url.split('/');
-      const adminIndex = pathParts.indexOf('qs_admin');
+      const pathParts = url.split("/");
+      const adminIndex = pathParts.indexOf("qs_admin");
       if (adminIndex !== -1 && pathParts[adminIndex + 1]) {
         return pathParts[adminIndex + 1].slice(0, -1);
       }
-      return 'record';
+      return "record";
     }
   };
 }
