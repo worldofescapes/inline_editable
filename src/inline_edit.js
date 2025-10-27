@@ -128,7 +128,11 @@ export function createInlineEditController(Controller) {
 
       // Если значение не изменилось, не отправляем запрос
       // Но пустые значения всегда отправляем, так как они могут быть валидными
-      if (value === this.originalValueValue) {
+      // Специальная обработка для Safari - гарантируем, что пустые значения будут отправлены
+      const isEmpty = value === "" || value === null || value === undefined;
+      const valueUnchanged = value === this.originalValueValue;
+
+      if (valueUnchanged && !isEmpty) {
         this.hideForm();
         return true;
       }
