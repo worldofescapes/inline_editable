@@ -1,12 +1,13 @@
 # ActiveAdmin Editable
 
-Inline editing for ActiveAdmin tables with Stimulus.
+Inline editing for ActiveAdmin tables and custom endpoints with Stimulus.
 
 ## Features
 
 - 📝 **Inline text editing** - Click to edit text fields directly in tables
 - ☑️ **Checkbox support** - Toggle boolean values instantly  
 - 📋 **Select dropdowns** - Choose from predefined options
+- 🌐 **Custom URL support** - Works with any API endpoint, not just ActiveAdmin
 - 🎨 **Customizable styling** - Built-in CSS classes with override options
 - ⚡ **Real-time updates** - Changes saved automatically via AJAX
 - 🔒 **Error handling** - User-friendly error messages
@@ -70,6 +71,33 @@ column :status do |record|
     ['Inactive', 'inactive'],
     ['Pending', 'pending']
   ])
+end
+```
+
+### Custom URL endpoint
+
+```ruby
+# Using a custom URL instead of the default ActiveAdmin resource URL
+column :status do |record|
+  inline_edit(record, :status, url: '/api/v1/custom_update/123')
+end
+```
+
+### Custom URL with dynamic parameters
+
+```ruby
+# Using a dynamic URL based on record attributes
+column :price do |product|
+  inline_edit(product, :price, url: "/api/products/#{product.id}/update_price")
+end
+```
+
+### Using in non-ActiveAdmin views
+
+```ruby
+# In any Rails view (not just ActiveAdmin)
+def render_editable_field(record, attribute)
+  inline_edit(record, attribute, url: url_for([:api, record]))
 end
 ```
 
