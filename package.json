@@ -1,5 +1,5 @@
 {
-  "name": "activeadmin-editable",
+  "name": "inline-editable",
   "version": "0.1.0",
   "description": "JavaScript assets for ActiveAdmin Editable gem",
   "main": "index.js",

@@ -1,12 +1,12 @@
-require_relative "lib/activeadmin_editable/version"
+require_relative "lib/inline_editable/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "activeadmin_editable"
-  spec.version     = ActiveadminEditable::VERSION
+  spec.name        = "inline_editable"
+  spec.version     = InlineEditable::VERSION
   spec.authors     = ["Alan", "mr-koww"]
   spec.email       = ["alan-eng@yandex.ru", "mr-koww@yandex.ru"]
-  spec.summary     = "Inline editing for ActiveAdmin"
-  spec.description = "Add inline editing capabilities to ActiveAdmin tables"
+  spec.summary     = "Inline editing for ActiveAdmin and custom URLs"
+  spec.description = "Add inline editing capabilities to ActiveAdmin tables and any custom URL endpoints"
   spec.homepage    = "https://github.com/worldofescapes/activeadmin_editable"
   spec.license     = "MIT"
 
