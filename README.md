@@ -1,13 +1,13 @@
-# ActiveAdmin Editable
+# Inline Editable
 
-Inline editing for ActiveAdmin tables and custom endpoints with Stimulus.
+Inline editing for tables and custom endpoints with Stimulus.
 
 ## Features
 
 - 📝 **Inline text editing** - Click to edit text fields directly in tables
 - ☑️ **Checkbox support** - Toggle boolean values instantly  
 - 📋 **Select dropdowns** - Choose from predefined options
-- 🌐 **Custom URL support** - Works with any API endpoint, not just ActiveAdmin
+- 🌐 **Custom URL support** - Works with any API endpoint
 - 🎨 **Customizable styling** - Built-in CSS classes with override options
 - ⚡ **Real-time updates** - Changes saved automatically via AJAX
 - 🔒 **Error handling** - User-friendly error messages
@@ -20,23 +20,23 @@ Inline editing for ActiveAdmin tables and custom endpoints with Stimulus.
 Add to your `Gemfile`:
 
 ```ruby
-gem 'activeadmin_editable'
+gem 'inline_editable'
 ```
 
 ### 2. Add the JavaScript package
 
 ```bash
-npm install activeadmin-editable
+npm install inline-editable
 # or
-yarn add activeadmin-editable
+yarn add inline-editable
 ```
 
 ### 3. Setup JavaScript
 
-In your ActiveAdmin JavaScript file (e.g., `app/assets/javascripts/active_admin.js`):
+In your JavaScript file (e.g., `app/assets/javascripts/application.js`):
 
 ```javascript
-import { createInlineEditController } from 'activeadmin-editable';
+import { createInlineEditController } from 'inline-editable';
 import { Application, Controller } from "@hotwired/stimulus";
 
 const application = Application.start();
@@ -44,13 +44,6 @@ const InlineEditController = createInlineEditController(Controller);
 application.register("inline-edit", InlineEditController);
 ```
 
-### 4. Setup CSS
-
-In your ActiveAdmin CSS file (e.g., `app/assets/stylesheets/active_admin.scss`):
-
-```scss
-@import "activeadmin_editable/inline_edit";
-```
 
 ## Usage
 
@@ -92,10 +85,10 @@ column :price do |product|
 end
 ```
 
-### Using in non-ActiveAdmin views
+### Using in any Rails views
 
 ```ruby
-# In any Rails view (not just ActiveAdmin)
+# In any Rails view
 def render_editable_field(record, attribute)
   inline_edit(record, attribute, url: url_for([:api, record]))
 end
@@ -135,10 +128,10 @@ end
 
 ## Controller Requirements
 
-Your ActiveAdmin resource controller must support JSON updates:
+Your controller must support JSON updates:
 
 ```ruby
-# In your ActiveAdmin resource
+# In your controller
 controller do
   def update
     resource = MyModel.find(params[:id])
@@ -166,7 +159,7 @@ end
 
 ```bash
 # Clone the repository
-git clone https://github.com/worldofescapes/activeadmin_editable.git
+git clone https://github.com/worldofescapes/inline_editable.git
 
 # Install dependencies
 bundle install
