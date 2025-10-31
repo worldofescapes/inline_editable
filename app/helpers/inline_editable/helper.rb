@@ -17,6 +17,17 @@ module InlineEditable
     private
     
     def build_common_attributes(record, attribute, value, as_type, options)
+      # URL должен быть указан явно
+      if options[:url].present?
+        attrs["inline-edit-url-value"] = options[:url]
+      else
+        raise ArgumentError, "URL должен быть указан явно через опцию :url"
+      end
+      # Проверка collection для select
+      if as_type == :select && options[:collection].blank?
+        raise ArgumentError, "Для типа :select необходимо указать опцию :collection"
+      end
+
       attrs = {
         controller: "inline-edit",
         "inline-edit-field-value" => attribute.to_s,
@@ -25,13 +36,6 @@ module InlineEditable
       
       attrs["inline-edit-field-type-value"] = as_type.to_s if as_type != :input
       attrs["inline-edit-collection-value"] = options[:collection].to_json if options[:collection].present?
-
-      # Если URL не указан, будет использоваться стандартный URL active_admin типа /qs_admin/orders/123
-      if options[:url].present?
-        attrs["inline-edit-url-value"] = options[:url]
-      else
-        attrs["inline-edit-url-value"] = url_for([:qs_admin, record])
-      end
       
       attrs
     end

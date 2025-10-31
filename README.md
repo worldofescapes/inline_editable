@@ -5,7 +5,7 @@ Inline editing for tables and custom endpoints with Stimulus.
 ## Features
 
 - 📝 **Inline text editing** - Click to edit text fields directly in tables
-- ☑️ **Checkbox support** - Toggle boolean values instantly  
+- ☑️ **Checkbox support** - Toggle boolean values instantly
 - 📋 **Select dropdowns** - Choose from predefined options
 - 🌐 **Custom URL support** - Works with any API endpoint
 - 🎨 **Customizable styling** - Built-in CSS classes with override options
@@ -36,14 +36,13 @@ yarn add inline-editable
 In your JavaScript file (e.g., `app/assets/javascripts/application.js`):
 
 ```javascript
-import { createInlineEditController } from 'inline-editable';
+import { createInlineEditController } from "inline-editable";
 import { Application, Controller } from "@hotwired/stimulus";
 
 const application = Application.start();
 const InlineEditController = createInlineEditController(Controller);
 application.register("inline-edit", InlineEditController);
 ```
-
 
 ## Usage
 
@@ -67,7 +66,7 @@ column :status do |record|
 end
 ```
 
-### Custom URL endpoint
+### URL endpoint (required parameter)
 
 ```ruby
 # Using a custom URL instead of the default ActiveAdmin resource URL
@@ -112,19 +111,19 @@ end
 
 ## Field Types
 
-| Type | Description | Example |
-|------|-------------|---------|
-| `:input` | Text field (default) | `inline_edit(record, :name)` |
-| `:select` | Dropdown with options | `inline_edit(record, :status, as: :select, collection: options)` |
-| `:checkbox` | Boolean toggle | `inline_edit(record, :active, as: :checkbox)` |
+| Type        | Description           | Example                                                          |
+| ----------- | --------------------- | ---------------------------------------------------------------- |
+| `:input`    | Text field (default)  | `inline_edit(record, :name)`                                     |
+| `:select`   | Dropdown with options | `inline_edit(record, :status, as: :select, collection: options)` |
+| `:checkbox` | Boolean toggle        | `inline_edit(record, :active, as: :checkbox)`                    |
 
 ## Options
 
-| Option | Type | Description | Default |
-|--------|------|-------------|---------|
-| `as` | Symbol | Field type (`:input`, `:select`, `:checkbox`) | `:input` |
-| `collection` | Array | Options for select field `[['Label', 'value'], ...]` | `nil` |
-| `css_class` | String | Additional CSS classes | `""` |
+| Option       | Type   | Description                                          | Default  |
+| ------------ | ------ | ---------------------------------------------------- | -------- |
+| `as`         | Symbol | Field type (`:input`, `:select`, `:checkbox`)        | `:input` |
+| `collection` | Array  | Options for select field `[['Label', 'value'], ...]` | `nil`    |
+| `css_class`  | String | Additional CSS classes                               | `""`     |
 
 ## Controller Requirements
 
