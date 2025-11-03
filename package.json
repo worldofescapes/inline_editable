@@ -1,6 +1,6 @@
 {
   "name": "inline-editable",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "JavaScript assets for ActiveAdmin Editable gem",
   "main": "index.js",
   "files": [
@@ -21,6 +21,6 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/worldofescapes/activeadmin_editable.git"
+    "url": "git+https://github.com/worldofescapes/inline_editable.git"
   }
 }
