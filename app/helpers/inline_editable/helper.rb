@@ -17,21 +17,24 @@ module InlineEditable
     private
     
     def build_common_attributes(record, attribute, value, as_type, options)
+      # Проверяем наличие URL
+      unless options[:url].present?
+        raise ArgumentError, "URL is required for inline_edit helper"
+      end
+      
+      #корректно обрабатывает модели с составными именами (например, AdminUser станет admin_user)
+      model_name = record.class.model_name.param_key
+      
       attrs = {
         controller: "inline-edit",
+        "inline-edit-url-value" => options[:url],
         "inline-edit-field-value" => attribute.to_s,
-        "inline-edit-original-value" => value.to_s
+        "inline-edit-original-value" => value.to_s,
+        "inline-edit-model-name-value" => model_name
       }
       
       attrs["inline-edit-field-type-value"] = as_type.to_s if as_type != :input
       attrs["inline-edit-collection-value"] = options[:collection].to_json if options[:collection].present?
-
-      # Если URL не указан, будет использоваться стандартный URL active_admin типа /qs_admin/orders/123
-      if options[:url].present?
-        attrs["inline-edit-url-value"] = options[:url]
-      else
-        attrs["inline-edit-url-value"] = url_for([:qs_admin, record])
-      end
       
       attrs
     end

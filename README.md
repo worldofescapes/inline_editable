@@ -51,7 +51,7 @@ application.register("inline-edit", InlineEditController);
 
 ```ruby
 column :comment do |record|
-  inline_edit(record, :comment)
+  inline_edit(record, :comment, url: "/api/records/#{record.id}")
 end
 ```
 
@@ -63,16 +63,16 @@ column :status do |record|
     ['Active', 'active'],
     ['Inactive', 'inactive'],
     ['Pending', 'pending']
-  ])
+  ], url: "/api/statuses/#{record.id}")
 end
 ```
 
-### Custom URL endpoint
+### URL parameter (required)
 
 ```ruby
-# Using a custom URL instead of the default ActiveAdmin resource URL
+# URL parameter is now required for all inline_edit calls
 column :status do |record|
-  inline_edit(record, :status, url: '/api/v1/custom_update/123')
+  inline_edit(record, :status, as: :select, collection: [...], url: '/api/v1/custom_update/123')
 end
 ```
 
@@ -85,12 +85,23 @@ column :price do |product|
 end
 ```
 
-### Using in any Rails views
+### Using in Rails views
 
 ```ruby
 # In any Rails view
 def render_editable_field(record, attribute)
+  # URL is required, no fallback to default URLs
   inline_edit(record, attribute, url: url_for([:api, record]))
+end
+```
+
+### Using with different frameworks
+
+```ruby
+# With Rails frameworks, specify the appropriate URL helper
+column :comment do |record|
+  # Пример для Rails с использованием маршрутных хелперов
+  inline_edit(record, :comment, url: record_path(record))
 end
 ```
 
@@ -98,7 +109,7 @@ end
 
 ```ruby
 column :is_active do |record|
-  inline_edit(record, :is_active, as: :checkbox)
+  inline_edit(record, :is_active, as: :checkbox, url: "/api/toggle/#{record.id}")
 end
 ```
 
@@ -106,7 +117,7 @@ end
 
 ```ruby
 column :priority do |record|
-  inline_edit(record, :priority, css_class: 'priority-field')
+  inline_edit(record, :priority, css_class: 'priority-field', url: "/api/priorities/#{record.id}")
 end
 ```
 
@@ -114,9 +125,9 @@ end
 
 | Type | Description | Example |
 |------|-------------|---------|
-| `:input` | Text field (default) | `inline_edit(record, :name)` |
-| `:select` | Dropdown with options | `inline_edit(record, :status, as: :select, collection: options)` |
-| `:checkbox` | Boolean toggle | `inline_edit(record, :active, as: :checkbox)` |
+| `:input` | Text field (default) | `inline_edit(record, :name, url: path)` |
+| `:select` | Dropdown with options | `inline_edit(record, :status, as: :select, collection: options, url: path)` |
+| `:checkbox` | Boolean toggle | `inline_edit(record, :active, as: :checkbox, url: path)` |
 
 ## Options
 

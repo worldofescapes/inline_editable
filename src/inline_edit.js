@@ -7,6 +7,7 @@ export function createInlineEditController(Controller) {
       originalValue: String,
       fieldType: { type: String, default: "input" },
       collection: { type: Array, default: [] },
+      modelName: { type: String, default: "record" },
     };
 
     showForm(event) {
@@ -138,7 +139,8 @@ export function createInlineEditController(Controller) {
       }
 
       try {
-        const modelName = this.getModelName();
+        // Используем имя модели из data-атрибута
+        const modelName = this.modelNameValue || "record";
         const requestBody = {};
         requestBody[modelName] = {
           [this.fieldValue]: value,
@@ -174,16 +176,6 @@ export function createInlineEditController(Controller) {
         this.showError(error);
         return false;
       }
-    }
-
-    getModelName() {
-      const url = this.urlValue;
-      const pathParts = url.split("/");
-      const adminIndex = pathParts.indexOf("qs_admin");
-      if (adminIndex !== -1 && pathParts[adminIndex + 1]) {
-        return pathParts[adminIndex + 1].slice(0, -1);
-      }
-      return "record";
     }
   };
 }
