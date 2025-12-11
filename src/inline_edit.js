@@ -52,11 +52,9 @@ export function createInlineEditController(Controller) {
               const errorMessages = [];
               for (const [field, messages] of Object.entries(error.errors)) {
                 if (Array.isArray(messages)) {
-                  messages.forEach((message) => {
-                    errorMessages.push(`${field} ${message}`);
-                  });
+                  errorMessages.push(...messages);
                 } else {
-                  errorMessages.push(`${field} ${messages}`);
+                  errorMessages.push(messages);
                 }
               }
               errorText = errorMessages.join("\n");
