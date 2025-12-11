@@ -49,16 +49,7 @@ export function createInlineEditController(Controller) {
             errorText = error.message;
           } else if (typeof error === "object" && error !== null) {
             if (error.errors && typeof error.errors === "object") {
-              const errorMessages = [];
-              for (const [field, messages] of Object.entries(error.errors)) {
-                if (Array.isArray(messages)) {
-                  messages.forEach((message) => {
-                    errorMessages.push(`${field} ${message}`);
-                  });
-                } else {
-                  errorMessages.push(`${field} ${messages}`);
-                }
-              }
+              const errorMessages = Object.values(error.errors).flat();
               errorText = errorMessages.join("\n");
             } else {
               errorText = JSON.stringify(error, null, 2);
