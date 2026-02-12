@@ -146,12 +146,12 @@ module InlineEditable
         options_html,
         id: unique_id,
         class: "default-select",
+        style: "color-scheme: light !important; background-color: #ffffff !important; color: #000000 !important;",
         "aria-labelledby" => "#{unique_id}-label",
         data: {
           action: "change->inline-edit#submitFormAndHide keydown->inline-edit#handleKeydown blur->inline-edit#hideForm",
           "inline-edit-target" => "input"
-        },
-        escape: false
+        }
       )
     end
     
